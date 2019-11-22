@@ -13,7 +13,7 @@ $email = (isset($email)) ? $email : '';
 $password = (isset($password)) ? $password : '';
 
 
-$s = "SELECT count(*) FROM 'accountsIS218' WHERE email = '$email' and password = '$password'";
+$s = "SELECT count(*) FROM 'accountsIS218' WHERE email = :email and password = :password";
 $count = $db->prepare($s);
 $count -> execute();
 $num_rows = $count ->fetchColumn();
