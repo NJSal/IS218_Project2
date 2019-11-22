@@ -19,7 +19,7 @@ $lastname = (isset($lastname)) ? $lastname : '';
 $birthday = (isset($birthday)) ? $birthday : '';
 $email = (isset($email)) ? $email : '';
 $password = (isset($password)) ? $password : '';
-/*
+
 $s = "SELECT count(*) FROM 'accountsIS218' WHERE email = '$email' and password = '$password'";
 $count = $db->prepare($s);
 $count -> execute();
@@ -28,11 +28,11 @@ print "'$num_rows'";
 
 echo "number of rows found with credentials: $num_rows<br>";
 if($num_rows > 0) {print "the user already exists"; die();}
-*/
+
 
 
 //*************************************************************************the following code works: but try to work with PDO
-
+/*
 $sqli = mysqli_connect($hostname, $username, $password);
 $project = "dfs23";
 mysqli_select_db($sqli,$project);
@@ -43,7 +43,7 @@ $s = "select * from accountsIS218 where email = '$email' and password = '$passwo
 $num = mysqli_num_rows($t);
 
 if($num > 0){echo"number of rows is greater than 0"; die();}
-
+*/
 //***************************************************************************************************************************
 
 

@@ -30,6 +30,8 @@ $statement->bindValue(':email', $email);
 $statement->bindValue(':password', $password);
 $statement->execute();
 $idselect = $statement->fetch();
+
+print"$idselect";
 $statement->closeCursor();
 
 
