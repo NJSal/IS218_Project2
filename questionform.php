@@ -27,14 +27,31 @@ if($skillselected < 2) {print "<br>Error in Skills Field: please write down at l
 
 
 
+$query = 'SELECT title, body from questions WHERE email = :email and password = :password';
+
+$statement = $db->prepare($query);
+$statement->bindValue(':email', $email);
+$statement->bindValue(':password', $password);
+$statement->execute();
+$values= $statement->fetchAll();
+
+$statement->closeCursor();
 
 $query = 'INSERT INTO questions
           (body)
-          Values
-          (:about)';
+          VALUES
+          (:about) WHERE $email = :owneremail';
+
+
+<?php foreach($values as $question) {?>
+<tr>
+    <td><?php echo $question['body']; ?></td>
+    <td><?php echo $question['title']; ?></td>
 
 
 
+</tr>
+<?php endforeach; ?>
 
 
 
