@@ -20,6 +20,8 @@ $birthday = (isset($birthday)) ? $birthday : '';
 $email = (isset($email)) ? $email : '';
 $password = (isset($password)) ? $password : '';
 
+
+/*
 $s = "SELECT count(*) FROM 'accountsIS218' WHERE email = '$email' and password = '$password'";
 $count = $db->prepare($s);
 $count -> execute();
@@ -28,7 +30,7 @@ print "'$num_rows'";
 
 echo "number of rows found with credentials: $num_rows<br>";
 if($num_rows > 0) {print "the user already exists"; die();}
-
+*/
 
 
 //*************************************************************************the following code works: but try to work with PDO

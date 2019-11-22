@@ -13,6 +13,17 @@ $email = (isset($email)) ? $email : '';
 $password = (isset($password)) ? $password : '';
 
 
+$s = "SELECT count(*) FROM 'accountsIS218' WHERE email = '$email' and password = '$password'";
+$count = $db->prepare($s);
+$count -> execute();
+$num_rows = $count ->fetchColumn();
+print "'$num_rows'";
+
+echo "number of rows found with credentials: $num_rows<br>";
+if($num_rows > 0) {print "the user already exists"; die();}
+
+
+
 $j = strpos($email, '@');
 if($j == false){print "<br> no @ characters found<br>";}
 if(empty($email)) {print "<br>Error in Email Field: you must enter your email<br>";}
