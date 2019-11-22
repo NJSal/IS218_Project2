@@ -23,22 +23,22 @@ if($plen < 8) {echo "<br>Error in Password Field: invalid password length: ".$pa
 if(empty($password)) {print "<br>Error in Password Field: you must enter your password<br>";}
 
 
-$query = 'SELECT id from accountsIS218 WHERE id = :id and password = :password';
+$query = 'SELECT id from accountsIS218 WHERE email = :email and password = :password';
 
 $statement = $db->prepare($query);
-$statement->bindValue(':id', $userid);
+$statement->bindValue(':email', $email);
 $statement->bindValue(':password', $password);
 $statement->execute();
 $idselect = $statement->fetch();
 $statement->closeCursor();
 
 
-if($query != null) {
-    header("Location: displayquestion.php?id=$userid&password=$password");
+if($idselect != null) {
+    header("Location: displayquestion.php?ownerid=$idselect");
 }
 
 else{
-    header("Location: registrationform.php?");
+    header("Location: registrationform.php?email=$email&password=$password");
 }
 
 ?>
@@ -47,7 +47,7 @@ else{
 <!DOCTYPE html>
 <html>
 <label>Email: </label>
-<span><?php echo htmlspecialchars($userid); ?></span>
+<span><?php echo htmlspecialchars($email); ?></span>
 <br>
 <label>Password: </label>
 <span><?php echo htmlspecialchars($password); ?></span>
