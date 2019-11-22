@@ -12,7 +12,7 @@ $email = (isset($email)) ? $email : '';
 
 $password = (isset($password)) ? $password : '';
 
-
+/*
 $s = "SELECT count(*) FROM 'accountsIS218' WHERE email = :email and password = :password";
 $count = $db->prepare($s);
 $count -> execute();
@@ -21,7 +21,18 @@ print "'$num_rows'";
 
 echo "number of rows found with credentials: $num_rows<br>";
 if($num_rows > 0) {print "the user already exists"; die();}
+*/
 
+$sqli = mysqli_connect($hostname, $username, $password);
+$project = "dfs23";
+mysqli_select_db($sqli,$project);
+
+$s = "select * from accountsIS218 where email = '$email' and password = '$password'";
+(($t = mysqli_query($sqli, $s)) or die(mysqli_error($sqli)));
+
+$num = mysqli_num_rows($t);
+
+if($num > 0){echo"number of rows is greater than 0"; die();}
 
 
 $j = strpos($email, '@');
