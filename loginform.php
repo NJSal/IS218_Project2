@@ -57,7 +57,7 @@ $statement->closeCursor();
 
 
 if(count($accounts218)>0){
-    header("Location: displayquestion.php");
+    header("Location: displayquestion.php?fname=$firstname&lastname=$lastname&email=$email");
 }
 else{
     header("Location: registrationform.html");

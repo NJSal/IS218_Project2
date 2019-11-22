@@ -1,19 +1,19 @@
 <?php
 require('pdo.php');
-/*
-$firstname = filter_input(INPUT_GET, 'fname');
-//$lastname = filter_input(INPUT_GET, 'lname');
-//$birthday = filter_input(INPUT_GET, 'birthday');
-$email = filter_input(INPUT_GET, 'email');
-*/
-/*$password = filter_input(INPUT_GET, 'password');*/
 
+$firstname = filter_input(INPUT_GET, 'fname');
+$lastname = filter_input(INPUT_GET, 'lname');
+$email = filter_input(INPUT_GET, 'email');
+
+$firstname= (isset($firstname)) ? $firstname : '';
+$lastname = (isset($lastname)) ? $lastname : '';
+$email = (isset($email)) ? $email : '';
 
 /*
 $idselect = filter_input(INPUT_GET, 'ownerid');
 */
 
-$query = 'SELECT fname, lname from accountsIS218 WHERE email = :email';
+$query = 'SELECT fname, lname from accountsIS218 WHERE email = :email AND firstname = :fname AND lastname = :lname';
 $statement = $db->prepare($query);
 $statement->bindValue(':email', $email);
 $statement->bindValue(':fname', $firstname);
