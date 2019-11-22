@@ -5,33 +5,25 @@ ini_set('display_errors', '1');
 require("pdo.php");
 //include("loginform.html");
 
-$userid = filter_input(INPUT_POST, 'userId');
+$email = filter_input(INPUT_POST, 'email');
 $password = filter_input(INPUT_POST, 'password');
 
-$userid = (isset($userid)) ? $userid : '';
+$email = (isset($email)) ? $email : '';
 
 $password = (isset($password)) ? $password : '';
 
-/*
+
 $j = strpos($email, '@');
 if($j == false){print "<br> no @ characters found<br>";}
 if(empty($email)) {print "<br>Error in Email Field: you must enter your email<br>";}
-*/
 
-if(empty($userid)) {print "<br>Error in UserId Field: you must enter your UserId<br>";}
 
 $plen = strlen($password);
 if($plen < 8) {echo "<br>Error in Password Field: invalid password length: ".$password." is not at least 8 characters long<br>";}
 if(empty($password)) {print "<br>Error in Password Field: you must enter your password<br>";}
 
-/*
-print "<br><br>";
-print "Email: $email";
-print "<br><br>";
-print "Password: $password";
-*/
 
-$query = 'SELECT id, password from accountsIS218 WHERE id = :id and password = :password';
+$query = 'SELECT id from accountsIS218 WHERE id = :id and password = :password';
 
 $statement = $db->prepare($query);
 $statement->bindValue(':id', $userid);

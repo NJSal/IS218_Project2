@@ -7,6 +7,8 @@ $birthday = filter_input(INPUT_GET, 'birthday');
 $email = filter_input(INPUT_GET, 'email');
 $password = filter_input(INPUT_GET, 'password');
 
+$userid = filter_input(INPUT_GET, 'ownerid');
+
 echo "User Name: $firstname <br>";
 echo "Email: $email<br>";
 
