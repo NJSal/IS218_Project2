@@ -25,6 +25,29 @@ $skillset = explode(',' , $skills);
 $skillselected = count($skillset);
 if($skillselected < 2) {print "<br>Error in Skills Field: please write down at least two skills<br>";}
 
+
+
+
+$query = 'INSERT INTO questions
+          (body)
+          Values
+          (:about)';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 print "<br><br>";
 print "Name: $name";

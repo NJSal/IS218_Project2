@@ -22,7 +22,7 @@ print "'$num_rows'";
 echo "number of rows found with credentials: $num_rows<br>";
 if($num_rows > 0) {print "the user already exists"; die();}
 */
-
+/*
 $sqli = mysqli_connect($hostname, $username, $password);
 $project = "dfs23";
 mysqli_select_db($sqli,$project);
@@ -33,7 +33,7 @@ $s = "select * from accountsIS218 where email = '$email' and password = '$passwo
 $num = mysqli_num_rows($t);
 
 if($num > 0){echo"number of rows is greater than 0"; die();}
-
+*/
 
 $j = strpos($email, '@');
 if($j == false){print "<br> no @ characters found<br>";}
@@ -45,25 +45,35 @@ if($plen < 8) {echo "<br>Error in Password Field: invalid password length: ".$pa
 if(empty($password)) {print "<br>Error in Password Field: you must enter your password<br>";}
 
 
-$query = 'SELECT id from accountsIS218 WHERE email = :email and password = :password';
+$query = 'SELECT * from accountsIS218 WHERE email = :email and password = :password';
 
 $statement = $db->prepare($query);
 $statement->bindValue(':email', $email);
 $statement->bindValue(':password', $password);
 $statement->execute();
-$idselect = $statement->fetch();
+$accounts218 = $statement->fetchAll();
 
-print"$idselect";
 $statement->closeCursor();
 
 
-if($idselect != null) {
-    header("Location: displayquestion.php?ownerid=$idselect");
+if(count($accounts218)>0){
+    header("Location: displayquestion.php");
+}
+else{
+    header("Location: registrationform.html");
+}
+
+
+/*
+if($email == null and $password == null) {
+    header("Location: registrationform.html");
 }
 
 else{
-    header("Location: registrationform.php?email=$email&password=$password");
+    header("Location: registrationform.html");
+
 }
+*/
 
 ?>
 
