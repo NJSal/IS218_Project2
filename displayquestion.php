@@ -19,9 +19,10 @@ echo "Email: $email<br>";
 $idselect = filter_input(INPUT_GET, 'ownerid');
 */
 
-$query = 'SELECT body,title FROM questions WHERE email = :email AND id = :ownerid';
+$query = 'SELECT body FROM questions WHERE email = :email AND $ownerid = :ownerid';
 $statement = $db->prepare($query);
 $statement->bindValue(':email', $email);
+$statement->bindValue(':ownerid', $ownerid);
 $statement->execute();
 /*
 echo "First Name: $firstname <br>";
@@ -31,11 +32,11 @@ echo "Email: $email<br>";
 $values= $statement->fetchAll();
 
 
-$owneridvalue = $accountsIS218['id'];
+$owneridvalue = $values['ownerid'];
 
 
 
-$statement->closeCursor();
+//$statement->closeCursor();
 /*
 $query = 'SELECT title, body from questions WHERE email = :email and password = :password';
 $statement = $db->prepare($query);
@@ -45,8 +46,9 @@ $statement->execute();
 $values= $statement->fetchAll();
 $statement->closeCursor();
 */
-
 ?>
+
+
 
 <?php foreach ($values as $question) : ?>
     <tr>
@@ -58,5 +60,8 @@ $statement->closeCursor();
 
 <html>
 <a href = questionform.html><button>Add another question</button></a>
+<!---<span><?php echo htmlspecialchars($owneridvalue); ?></span>--->
+<br>
+
 
 </html>

@@ -4,10 +4,14 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 //include("questionform.html");
+require("pdo.php");
 
 $name = filter_input(INPUT_POST, 'name');
 $about = filter_input(INPUT_POST, 'about');
 $skills = filter_input(INPUT_POST, 'skills');
+
+
+
 
 $name = (isset($name)) ? $name : '';
 $about = (isset($about)) ? $about : '';
@@ -43,17 +47,80 @@ $statement->execute();
 
 $statement->closeCursor();
 */
-$queryB = 'INSERT INTO questions
-          (ownermail, skills, body, title)
+$owneridvalue = filter_input(INPUT_POST, '');
+
+
+$query = 'SELECT ownermail FROM questions WHERE $name = :title AND $about = :body ';
+$statement = $db->prepare($query);
+$statement->bindValue(':title', $name);
+$statement->bindValue(':body', $about);
+$statement->execute();
+/*
+ *
+$firstname = filter_input(INPUT_POST, 'firstname');
+$lastname = filter_input(INPUT_POST, 'lastname');
+$birthday = filter_input(INPUT_POST, 'birthday');
+$email = filter_input(INPUT_POST, 'email');
+$password = filter_input(INPUT_POST, 'password');
+ *
+ *
+ *
+ *
+ *
+echo "First Name: $firstname <br>";
+echo "Last Name: $lastname <br>";
+echo "Email: $email<br>";
+*/
+$questions= $statement->fetch();
+
+
+
+//$questions= $statement->fetch();
+
+
+//$questionsvalue = $questions['body'];
+
+
+$owneremailvalue = $questions['owneremail'];
+
+
+
+
+
+
+$title = $name;
+$body = $about;
+$inputskills = $skills;
+
+$query = 'INSERT INTO questions
+          (owneremail, skills, body, title)
           VALUES
           (:email, :skills, :body, :title)';
 
-$statement = $db->prepare($queryB);
-$statement->bindValue(':email', $email);
+$statement = $db->prepare($query);
+$statement->bindValue(':skills', $skills);
+$statement->bindValue(':body', $about);
+$statement->bindValue(':owneremail', $owneremailvalue);
+$statement->bindValue(':title', $title);
 $statement->execute();
-$values= $statement->fetchAll();
+//$questions= $statement->fetch();
+
+/*
+$questions = questions['body'];                     *******most likely NOT needed
+$owneridvalue = questions['ownerid'];
+*/
 
 $statement->closeCursor();
+
+
+/*
+if(count($values)>0){
+
+header("Location: displayquestion.php?fname=$firstname&lastname=$lastname&email=$email");       //made everything work
+}
+*/
+header("Location: displayquestion.php?ownerid=$owneridvalue");
+
 
 ?>
 <!DOCTYPE html>
