@@ -44,20 +44,26 @@ $plen = strlen($password);
 if($plen < 8) {echo "<br>Error in Password Field: invalid password length: ".$password." is not at least 8 characters long<br>";}
 if(empty($password)) {print "<br>Error in Password Field: you must enter your password<br>";}
 
+/*
+$query = 'SELECT * from accountsIS218 WHERE email = :email and password = :password'; //made everything work
+*/
+$query = 'SELECT id FROM accountsIS218 WHERE email = :email AND password = :password'; //experimental
 
-$query = 'SELECT * from accountsIS218 WHERE email = :email and password = :password';
 
 $statement = $db->prepare($query);
 $statement->bindValue(':email', $email);
 $statement->bindValue(':password', $password);
 $statement->execute();
-$accounts218 = $statement->fetchAll();
-
+$accountsIS218 = $statement->fetch();
+//$accountsIS218 = $statement->fetchAll();                  //made everything work
 $statement->closeCursor();
 
 
-if(count($accounts218)>0){
-    header("Location: displayquestion.php?fname=$firstname&lastname=$lastname&email=$email");
+if(count($accountsIS218)>0){
+    /*
+    header("Location: displayquestion.php?fname=$firstname&lastname=$lastname&email=$email");       //made everything work
+    */
+    header("Location: displayquestion.php?id=$accountsIS218");
 }
 else{
     header("Location: registrationform.html");

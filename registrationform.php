@@ -69,7 +69,7 @@ $statement->bindValue(':password', $password);
 $statement->execute();
 
 //Close the datab
-
+$statement->closeCursor();
 
 if(empty($firstname)){
     print "<br>Error in Firstname Field: you must enter your firstname<br>";

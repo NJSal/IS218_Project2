@@ -26,67 +26,44 @@ $skillselected = count($skillset);
 if($skillselected < 2) {print "<br>Error in Skills Field: please write down at least two skills<br>";}
 
 
+/*
+$queryA = 'SELECT title, body FROM questions WHERE email = :email AND password = :password';
+*/
+$queryA = 'SELECT body FROM questions WHERE email = :email AND password = :password'; //experimental
 
-$query = 'SELECT title, body from questions WHERE email = :email and password = :password';
+//$body = $queryA;
 
-$statement = $db->prepare($query);
+$statement = $db->prepare($queryA);
 $statement->bindValue(':email', $email);
 $statement->bindValue(':password', $password);
+
+$statement->execute();
+//$values= $statement->fetchAll();
+
+$statement->closeCursor();
+
+$queryB = 'INSERT INTO questions
+          (ownermail, skills, body, title)
+          VALUES
+          (:email, :skills, :body, :title)';
+
+$statement = $db->prepare($queryB);
+$statement->bindValue(':email', $email);
+$statement->bindValue(':body',body);
 $statement->execute();
 $values= $statement->fetchAll();
 
 $statement->closeCursor();
 
-$query = 'INSERT INTO questions
-          (body)
-          VALUES
-          (:about) WHERE $email = :owneremail';
+?>
 
 
-<?php foreach($values as $question) {?>
+<?php foreach ($values as $question) : ?>
 <tr>
     <td><?php echo $question['body']; ?></td>
     <td><?php echo $question['title']; ?></td>
-
-
-
 </tr>
-<?php endforeach; ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-print "<br><br>";
-print "Name: $name";
-print "<br><br>";
-print "About: $about";
-*/
-
-
-/*
-$skillset = explode(',' , $skills);
-print "<br><br>";
-print "Skills: ";
-for($i = 0; $i < count($skillset); $i++){
-    echo "$skillset[$i]";
-    if($i < (count($skillset) -1)){
-        echo ", ";
-    }
-}
-*/
-
-
-?>
+<?php endforeach;?>
 
 
 <!DOCTYPE html>
