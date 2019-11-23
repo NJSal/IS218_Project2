@@ -81,7 +81,7 @@ $questions= $statement->fetch();
 //$questionsvalue = $questions['body'];
 
 
-$owneremailvalue = $questions['owneremail'];
+$email = $questions['owneremail'];
 
 
 
@@ -90,7 +90,6 @@ $owneremailvalue = $questions['owneremail'];
 
 $title = $name;
 $body = $about;
-$inputskills = $skills;
 
 $query = 'INSERT INTO questions
           (owneremail, skills, body, title)
@@ -99,8 +98,8 @@ $query = 'INSERT INTO questions
 
 $statement = $db->prepare($query);
 $statement->bindValue(':skills', $skills);
-$statement->bindValue(':body', $about);
-$statement->bindValue(':owneremail', $owneremailvalue);
+$statement->bindValue(':body', $body);
+$statement->bindValue(':owneremail', $email);
 $statement->bindValue(':title', $title);
 $statement->execute();
 //$questions= $statement->fetch();
