@@ -56,16 +56,6 @@ $values= $statement->fetchAll();
 $statement->closeCursor();
 
 ?>
-
-
-<?php foreach ($values as $question) : ?>
-<tr>
-    <td><?php echo $question['body']; ?></td>
-    <td><?php echo $question['title']; ?></td>
-</tr>
-<?php endforeach;?>
-
-
 <!DOCTYPE html>
 <html>
 <head>

@@ -47,8 +47,7 @@ if(empty($password)) {print "<br>Error in Password Field: you must enter your pa
 /*
 $query = 'SELECT * from accountsIS218 WHERE email = :email and password = :password'; //made everything work
 */
-$query = 'SELECT id FROM accountsIS218 WHERE email = :email AND password = :password'; //experimental
-
+$query = 'SELECT id, fname, lname FROM accountsIS218 WHERE email = :email AND password = :password'; //experimental
 
 $statement = $db->prepare($query);
 $statement->bindValue(':email', $email);
@@ -56,6 +55,9 @@ $statement->bindValue(':password', $password);
 $statement->execute();
 $accountsIS218 = $statement->fetch();
 //$accountsIS218 = $statement->fetchAll();                  //made everything work
+$idvalue = $accountsIS218['id'];
+$fnamevalue = $accountsIS218['fname'];
+$lnamevalue = $accountsIS218['lname'];
 $statement->closeCursor();
 
 
@@ -63,7 +65,7 @@ if(count($accountsIS218)>0){
     /*
     header("Location: displayquestion.php?fname=$firstname&lastname=$lastname&email=$email");       //made everything work
     */
-    header("Location: displayquestion.php?id=$accountsIS218");
+    header("Location: displayquestion.php?email=$email&id=$idvalue&fname=$fnamevalue&lname=$lnamevalue");
 }
 else{
     header("Location: registrationform.html");
@@ -86,6 +88,16 @@ else{
 
 <!DOCTYPE html>
 <html>
+
+<label>First Name: </label>
+<span><?php echo htmlspecialchars($firstname); ?></span>
+<br>
+
+<label>Last Name: </label>: </label>
+<span><?php echo htmlspecialchars($lastname); ?></span>
+<br>
+
+
 <label>Email: </label>
 <span><?php echo htmlspecialchars($email); ?></span>
 <br>
