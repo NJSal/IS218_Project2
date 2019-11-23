@@ -29,6 +29,7 @@ if($skillselected < 2) {print "<br>Error in Skills Field: please write down at l
 /*
 $queryA = 'SELECT title, body FROM questions WHERE email = :email AND password = :password';
 */
+/*
 $queryA = 'SELECT body FROM questions WHERE email = :email AND password = :password'; //experimental
 
 //$body = $queryA;
@@ -41,7 +42,7 @@ $statement->execute();
 //$values= $statement->fetchAll();
 
 $statement->closeCursor();
-
+*/
 $queryB = 'INSERT INTO questions
           (ownermail, skills, body, title)
           VALUES
@@ -49,7 +50,6 @@ $queryB = 'INSERT INTO questions
 
 $statement = $db->prepare($queryB);
 $statement->bindValue(':email', $email);
-$statement->bindValue(':body',body);
 $statement->execute();
 $values= $statement->fetchAll();
 

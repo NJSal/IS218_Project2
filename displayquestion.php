@@ -19,9 +19,9 @@ echo "Email: $email<br>";
 $idselect = filter_input(INPUT_GET, 'ownerid');
 */
 
-$query = 'SELECT body,title FROM questions WHERE email = :ownermail AND id = :ownerid';
+$query = 'SELECT body,title FROM questions WHERE email = :email AND id = :ownerid';
 $statement = $db->prepare($query);
-$statement->bindValue(':onwnermail', $email);
+$statement->bindValue(':email', $email);
 $statement->execute();
 /*
 echo "First Name: $firstname <br>";
@@ -29,6 +29,12 @@ echo "Last Name: $lastname <br>";
 echo "Email: $email<br>";
 */
 $values= $statement->fetchAll();
+
+
+$owneridvalue = $accountsIS218['id'];
+
+
+
 $statement->closeCursor();
 /*
 $query = 'SELECT title, body from questions WHERE email = :email and password = :password';
@@ -39,6 +45,7 @@ $statement->execute();
 $values= $statement->fetchAll();
 $statement->closeCursor();
 */
+
 ?>
 
 <?php foreach ($values as $question) : ?>
@@ -46,12 +53,7 @@ $statement->closeCursor();
         <td><?php echo $question['body']; ?></td>
         <td><?php echo $question['title']; ?></td>
     </tr>
-<?php endforeach;?>
-
-
-
-
-
+<?php endforeach; ?>
 
 
 <html>
